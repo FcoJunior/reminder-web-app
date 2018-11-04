@@ -1,0 +1,102 @@
+<!-- menu -->
+<header id="menu">
+  <nav class="navbar fixed-top navbar-expand-lg navbar-light">
+    <a class="navbar-brand mb-0 h1" href="#">Reminder</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse">
+      <form class="form-inline mr-2">
+        <div class="input-group">
+          <input type="text" class="form-control" 
+            placeholder="Procure aqui por um título...">
+        </div>
+      </form>
+      <button type="button" (click)="openModal(template)" class="btn btn-danger">Novo lembrete</button>
+    </div>
+  </nav>
+</header>
+
+<div class="d-flex">
+  <div class="col-9">
+    <div class="row" style="margin-top: 4.5rem">
+      <div *ngFor="let item of stickyNotes" class="col-md-4" [hidden]="item.expired && !showExpired">
+        <div class="card mb-4" [ngClass]="{'bg-light': item.expired}">
+          <div class="card-body" [ngClass]="{'text-muted': item.expired}">
+            <h5 class="card-title">{{ item.title }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ item.date_format }}</h6>
+            <p class="card-text">{{ item.description }}</p>
+            <p class="card-text"><small class="text-muted">{{ item.sponsor }}</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="side-menu" class="col-3">
+    <div style="margin-top: 4.5rem">
+      <div class="form-group">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" [checked]="showExpired" (change)="showExpired = !showExpired" class="custom-control-input " id="customCheck1">
+          <label class="custom-control-label" for="customCheck1">Exibir vencidos</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="">Ordenar por:</label>
+        <select class="form-control mb-2" name="">
+          <option value="0">Data</option>
+          <option value="0">Título</option>
+        </select>
+        <select name="" class="form-control mb-2">
+          <option value="">Crescente</option>
+          <option value="">Decrescente</option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Novo lembrete</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form>
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Título</label>
+        <input type="text" autocomplete="off" class="form-control">
+      </div>
+      <div class="form-group">
+        <label>Descrição</label>
+        <textarea class="form-control" rows="5"></textarea>
+      </div>
+      <div class="row">
+        <div class="form-group col">
+          <label for="">Data</label>
+          <input type="text"
+            autocomplete="off"
+            class="form-control"
+            [bsConfig]="bsConfig"
+            bsDatepicker>
+        </div>
+        <div class="form-group col">
+          <label for="">Hora</label>
+          <timepicker [showMeridian]="false" [showSpinners]="false"></timepicker>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Responsável</label>
+        <input type="text" autocomplete="off" class="form-control">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button (click)="modalRef.hide()" type="button" class="btn btn-secondary">Voltar</button>
+      <button type="button" class="btn btn-danger">Salvar</button>
+    </div>
+  </form>
+</ng-template>
