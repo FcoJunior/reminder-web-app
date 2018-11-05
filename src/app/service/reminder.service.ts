@@ -16,4 +16,9 @@ export class ReminderService extends HttpProvider<ReminderDomain> {
     return this._getAll('v1/stickynotes')
       .pipe(map(x => ReminderDomain.mapArray(x.data)));
   }
+
+  public create(reminder: ReminderDomain): Observable<ReminderDomain> {
+    return this.save('v1/stickynotes', reminder)
+      .pipe(map(x => ReminderDomain.map(x.data)));
+  }
 }

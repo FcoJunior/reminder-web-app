@@ -1,0 +1,8 @@
+<div class="card mb-4" [ngClass]="{'bg-light': reminder.expired}">
+  <div class="card-body" [ngClass]="{'text-muted': reminder.expired}">
+    <h5 class="card-title">{{ reminder.title }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">{{ reminder.date_format }}</h6>
+    <p class="card-text">{{ reminder.description }}</p>
+    <p class="card-text"><small class="text-muted">{{ reminder.sponsor }}</small></p>
+  </div>
+</div>

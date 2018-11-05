@@ -1,0 +1,10 @@
+nav {
+  background-color: #FFFFFF;
+  box-shadow: 0px -1px 5px #000000;
+  form {
+    width: 100% !important;
+    .input-group {
+      width: inherit;
+    }
+  }
+}

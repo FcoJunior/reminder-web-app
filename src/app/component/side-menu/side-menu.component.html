@@ -1,0 +1,21 @@
+<div id="side-menu" class="col-3">
+  <div style="margin-top: 4.5rem">
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" [checked]="showExpired" (change)="changeShowExpired()" class="custom-control-input " id="customCheck1">
+        <label class="custom-control-label" for="customCheck1">Exibir vencidos</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="">Ordenar por:</label>
+      <select class="form-control mb-2" name="">
+        <option value="0">Data</option>
+        <option value="0">Título</option>
+      </select>
+      <select name="" class="form-control mb-2">
+        <option value="">Crescente</option>
+        <option value="">Decrescente</option>
+      </select>
+    </div>
+  </div>
+</div>
