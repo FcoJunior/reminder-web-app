@@ -9,6 +9,8 @@ export class SideMenuComponent implements OnInit {
 
   @Input() showExpired: boolean = false;
   @Output() changeCheckExpired: EventEmitter<boolean> = new EventEmitter(); 
+  @Output() changeOrderBy: EventEmitter<string> = new EventEmitter();
+  @Output() changeOrdinate: EventEmitter<string> = new EventEmitter();
 
   constructor() { }
 
@@ -17,6 +19,14 @@ export class SideMenuComponent implements OnInit {
 
   changeShowExpired() {
     this.changeCheckExpired.emit(this.showExpired);
+  }
+
+  changeField(event: any) {
+    this.changeOrderBy.emit(event.target.value)
+  }
+
+  changeOrder(event: any) {
+    this.changeOrdinate.emit(event.target.value)
   }
 
 }

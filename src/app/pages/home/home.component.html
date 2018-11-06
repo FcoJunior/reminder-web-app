@@ -1,14 +1,17 @@
-<app-fixed-menu (newReminder)="openModal(template)"></app-fixed-menu>
+<app-fixed-menu (newReminder)="openModal(template)" (search)="searchByTitle($event)"></app-fixed-menu>
 
 <div class="d-flex">
   <div class="col-9">
     <div class="row" style="margin-top: 4.5rem">
+      <div class="container mt-5" *ngIf="selector.Title && stickyNotes.length < 1">
+        <h1 class="text-muted">=/ Nenhum item encontrado para <b class="font-weight-bold">{{ selector.Title }}...</b></h1>
+      </div>
       <div *ngFor="let item of stickyNotes" class="col-md-4" [hidden]="item.expired && !showExpired">
         <app-reminder-card [reminder]="item"></app-reminder-card>
       </div>
     </div>
   </div>
-  <app-side-menu [showExpired]="showExpired" (changeCheckExpired)="showExpired = !showExpired"></app-side-menu>
+  <app-side-menu (changeOrderBy)="changeOrderBy($event)" (changeOrdinate)="changeOrdinate($event)" [showExpired]="showExpired" (changeCheckExpired)="showExpired = !showExpired"></app-side-menu>
 </div>
 
 <ng-template #template>

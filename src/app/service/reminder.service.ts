@@ -1,3 +1,4 @@
+import { ReminderSelector } from './../selector/reminder.selector';
 import { Http } from '@angular/http';
 import { HttpProvider } from "../provider/http.provider";
 import { ReminderDomain } from "../domain/reminder.domain";
@@ -12,8 +13,8 @@ export class ReminderService extends HttpProvider<ReminderDomain> {
     super(http);
   }
 
-  public get(): Observable<ReminderDomain[]> {
-    return this._getAll('v1/stickynotes')
+  public get(selector: ReminderSelector): Observable<ReminderDomain[]> {
+    return this._get('v1/stickynotes', selector)
       .pipe(map(x => ReminderDomain.mapArray(x.data)));
   }
 

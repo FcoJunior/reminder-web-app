@@ -3,6 +3,7 @@ import { environment } from './../../environments/environment';
 import { Http, RequestOptions, Request, RequestMethod, Headers } from '@angular/http';
 import { Observable } from 'rxjs';
 import { DomainBase } from '../domain/base.domain';
+import { ReminderSelector } from '../selector/reminder.selector';
 
 export abstract class HttpProvider<T extends DomainBase> {
   
@@ -12,7 +13,7 @@ export abstract class HttpProvider<T extends DomainBase> {
     this._baseUrl = environment.api_url;
   }
 
-  protected _get(path: string): Observable<ResponseDomain<T>> {
+  protected _getSingle(path: string): Observable<ResponseDomain<T>> {
     return new Observable<ResponseDomain<T>>(observer => {
       this._httpService.get(this._baseUrl + path)
         .subscribe(response => {
@@ -22,9 +23,9 @@ export abstract class HttpProvider<T extends DomainBase> {
     });
   }
 
-  protected _getAll(path: string): Observable<ResponseDomain<T[]>> {
+  protected _get(path: string, selector: ReminderSelector): Observable<ResponseDomain<T[]>> {
     return new Observable<ResponseDomain<T[]>>(observer => {
-      this._httpService.get(this._baseUrl + path)
+      this._httpService.get(this._baseUrl + path, { params: selector })
         .subscribe(response => {
           observer.next(response.json() as ResponseDomain<T[]>);
           observer.complete();

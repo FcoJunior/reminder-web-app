@@ -15,12 +15,11 @@ export class ReminderDomain extends DomainBase {
   @JsonProperty()
   public sponsor: string = '';
   
-  @JsonProperty()
-  public expired: boolean = false;
+  @JsonIgnore()
+  public get expired(): boolean {
+    return new Date(this.dateString) < new Date();
+  }
   
-  private _day: Date = new Date();
-  private _time: Date = new Date();
-
   @JsonIgnore()
   public day: Date = new Date(this.dateString);
 

@@ -7,14 +7,14 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="">Ordenar por:</label>
-      <select class="form-control mb-2" name="">
-        <option value="0">Data</option>
-        <option value="0">Título</option>
+      <label>Ordenar por:</label>
+      <select (change)="changeField($event)" class="form-control mb-2" name="">
+        <option value="Date">Data</option>
+        <option value="Title">Título</option>
       </select>
-      <select name="" class="form-control mb-2">
-        <option value="">Crescente</option>
-        <option value="">Decrescente</option>
+      <select (change)="changeOrder($event)" class="form-control mb-2">
+        <option value="ASC">Crescente</option>
+        <option value="DESC">Decrescente</option>
       </select>
     </div>
   </div>

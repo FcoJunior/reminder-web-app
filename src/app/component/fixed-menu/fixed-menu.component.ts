@@ -8,6 +8,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 export class FixedMenuComponent implements OnInit {
 
   @Output() newReminder: EventEmitter<null> = new EventEmitter();
+  @Output() search: EventEmitter<string> = new EventEmitter();
 
   constructor() { }
 
@@ -16,6 +17,10 @@ export class FixedMenuComponent implements OnInit {
 
   menuButtonClick() {
     this.newReminder.emit(null);
+  }
+
+  changeSearch(event: any) {
+    this.search.emit(event.target.value);
   }
 
 }

@@ -5,6 +5,7 @@ import { defineLocale, ptBrLocale, BsDatepickerConfig, BsLocaleService } from 'n
 import { ReminderService } from '../../service/reminder.service';
 import { ReminderDomain } from '../../domain/reminder.domain';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { ReminderSelector } from '../../selector/reminder.selector';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit {
   showExpired: boolean = true;
   formGroup: FormGroup;
   reminder: ReminderDomain = new ReminderDomain();
+  selector: ReminderSelector = new ReminderSelector();
 
   constructor(
     private _modalService: BsModalService,
@@ -31,7 +33,7 @@ export class HomeComponent implements OnInit {
     defineLocale('pt-br', ptBrLocale);
     this._localeService.use('pt-br');
 
-    this._reminderService.get().subscribe(x => { this.stickyNotes = x });
+    this._searchItems();
 
     this.formGroup = new FormGroup({
       'title': new FormControl(this.reminder.title, Validators.required),
@@ -55,6 +57,26 @@ export class HomeComponent implements OnInit {
       template,
       Object.assign({}, { class: 'modal-lg' })
     );
+  }
+
+  searchByTitle(value) {
+    this.selector.Title = value;
+    this._searchItems();
+  }
+
+  changeOrdinate(value) {
+    this.selector.Ordination = value;
+    this._searchItems();
+  }
+
+  changeOrderBy(value) {
+    this.selector.OrderByField = value;
+    this._searchItems();
+  }
+
+  private _searchItems() {
+    this._reminderService.get(this.selector)
+      .subscribe(x => { this.stickyNotes = x });
   }
 
 }
