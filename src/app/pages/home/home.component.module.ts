@@ -8,6 +8,7 @@ import { FixedMenuComponent } from '../../component/fixed-menu/fixed-menu.compon
 import { SideMenuComponent } from '../../component/side-menu/side-menu.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NotificationProvider } from '../../provider/notification.provider';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { NotificationProvider } from '../../provider/notification.provider';
     TimepickerModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
+    InfiniteScrollModule
   ],
   exports: [
     HomeComponent

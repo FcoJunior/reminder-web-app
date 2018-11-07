@@ -1,6 +1,10 @@
 <app-fixed-menu [badgeCount]="10" (newReminder)="openModal(template)" (search)="searchByTitle($event)"></app-fixed-menu>
 
-<div class="d-flex">
+<div class="d-flex" 
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="500"
+  (scrolled)="onScroll()">
   <div class="col-9">
     <div class="row" style="margin-top: 4.5rem">
       <div class="container mt-5" *ngIf="selector.Title && stickyNotes.length < 1">

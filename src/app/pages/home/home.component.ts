@@ -65,6 +65,12 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  onScroll() {
+    this.selector.Page++;
+    this._reminderService.get(this.selector)
+      .subscribe(x => { x.forEach(item => this.stickyNotes.push(item)); });
+  }
+
   searchByTitle(value) {
     this.selector.Title = value;
     this._searchItems();
@@ -81,6 +87,7 @@ export class HomeComponent implements OnInit {
   }
 
   private _searchItems() {
+    this.selector.Page = 1;
     this._reminderService.get(this.selector)
       .subscribe(x => { this.stickyNotes = x });
   }
@@ -97,7 +104,7 @@ export class HomeComponent implements OnInit {
             }, 2000)
           });
         });
-    }, 30000);
+    }, 10000);
   }
 
 }

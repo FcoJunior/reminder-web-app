@@ -21,10 +21,8 @@ export class NotificationProvider {
     let html = this._buildHtml(reminder);
 
     let toaster = this._snotifyService.confirm(null, {
-      timeout: 10000,
-      showProgressBar: true,
+      timeout: 0,
       closeOnClick: true,
-      pauseOnHover: true,
       html: html,
       buttons: [ ]
     }).on('click', toast => {
