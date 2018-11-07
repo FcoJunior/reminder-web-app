@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { Routing } from './app.routing';
 import { PagesModule } from './pages/pages.module';
 import { HttpModule } from '@angular/http';
+import {SnotifyModule, SnotifyService, ToastDefaults} from 'ng-snotify';
 
 @NgModule({
   declarations: [
@@ -14,9 +15,13 @@ import { HttpModule } from '@angular/http';
     BrowserModule,
     Routing,
     PagesModule,
-    HttpModule
+    HttpModule,
+    SnotifyModule
   ],
-  providers: [],
+  providers: [
+    { provide: 'SnotifyToastConfig', useValue: ToastDefaults},
+    SnotifyService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

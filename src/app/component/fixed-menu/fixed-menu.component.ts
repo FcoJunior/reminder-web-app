@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-fixed-menu',
@@ -9,6 +9,7 @@ export class FixedMenuComponent implements OnInit {
 
   @Output() newReminder: EventEmitter<null> = new EventEmitter();
   @Output() search: EventEmitter<string> = new EventEmitter();
+  @Input() badgeCount = 0;
 
   constructor() { }
 

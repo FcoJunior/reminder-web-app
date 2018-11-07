@@ -14,9 +14,9 @@
           (keyup)="changeSearch($event)">
       </div>
     </form>
-    <button type="button" class="btn btn-light mr-2">
-      Notificações <span class="badge badge-danger">5</span>
-    </button>
+    <!-- <button type="button" class="btn btn-light mr-2">
+      Notificações <span *ngIf="badgeCount" class="badge badge-danger">{{ badgeCount }}</span>
+    </button> -->
     <button type="button" (click)="menuButtonClick()" class="btn btn-danger">Novo lembrete</button>
   </div>
 </nav>

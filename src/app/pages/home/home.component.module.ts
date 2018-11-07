@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FixedMenuComponent } from '../../component/fixed-menu/fixed-menu.component';
 import { SideMenuComponent } from '../../component/side-menu/side-menu.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NotificationProvider } from '../../provider/notification.provider';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HomeComponent
   ],
   providers: [
-    ReminderService
+    ReminderService,
+    NotificationProvider
   ],
 })
 export class HomeComponentModule {}

@@ -1,3 +1,4 @@
+import { NotificationProvider } from './../../provider/notification.provider';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
@@ -6,6 +7,7 @@ import { ReminderService } from '../../service/reminder.service';
 import { ReminderDomain } from '../../domain/reminder.domain';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ReminderSelector } from '../../selector/reminder.selector';
+import { SnotifyService } from 'ng-snotify';
 
 @Component({
   selector: 'app-home',
@@ -21,11 +23,13 @@ export class HomeComponent implements OnInit {
   formGroup: FormGroup;
   reminder: ReminderDomain = new ReminderDomain();
   selector: ReminderSelector = new ReminderSelector();
+  private _checkNotifyEvent;
 
   constructor(
     private _modalService: BsModalService,
     private _localeService: BsLocaleService,
-    private _reminderService: ReminderService
+    private _reminderService: ReminderService,
+    private _notificationProvider: NotificationProvider
   ) {}
 
   ngOnInit() {
@@ -42,11 +46,13 @@ export class HomeComponent implements OnInit {
       'time': new FormControl(this.reminder.time, Validators.required),
       'sponsor': new FormControl(this.reminder.sponsor, Validators.required)
     });
+  
+    this._checkNotify();
   }
 
   save() {
     this._reminderService.create(this.reminder).subscribe(x => {
-      this.stickyNotes.push(x);
+      this._searchItems();
     })
     this.reminder = new ReminderDomain();
     this.modalRef.hide();
@@ -77,6 +83,21 @@ export class HomeComponent implements OnInit {
   private _searchItems() {
     this._reminderService.get(this.selector)
       .subscribe(x => { this.stickyNotes = x });
+  }
+
+  private _checkNotify() {
+    this._checkNotifyEvent = setInterval(() => {
+      this._reminderService.checkNotify(10)
+        .subscribe(x => {
+          x.forEach(reminder => {
+            setTimeout(() => {
+              if(!this._notificationProvider.wasShowScreen(reminder.id)) {
+                this._notificationProvider.showNotify(reminder);
+              }
+            }, 2000)
+          });
+        });
+    }, 30000);
   }
 
 }

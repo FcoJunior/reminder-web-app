@@ -1,4 +1,4 @@
-<app-fixed-menu (newReminder)="openModal(template)" (search)="searchByTitle($event)"></app-fixed-menu>
+<app-fixed-menu [badgeCount]="10" (newReminder)="openModal(template)" (search)="searchByTitle($event)"></app-fixed-menu>
 
 <div class="d-flex">
   <div class="col-9">
@@ -79,3 +79,4 @@
     </div>
   </form>
 </ng-template>
+

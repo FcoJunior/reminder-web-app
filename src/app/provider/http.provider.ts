@@ -23,9 +23,19 @@ export abstract class HttpProvider<T extends DomainBase> {
     });
   }
 
-  protected _get(path: string, selector: ReminderSelector): Observable<ResponseDomain<T[]>> {
+  protected _getWithParams(path: string, selector: ReminderSelector): Observable<ResponseDomain<T[]>> {
     return new Observable<ResponseDomain<T[]>>(observer => {
       this._httpService.get(this._baseUrl + path, { params: selector })
+        .subscribe(response => {
+          observer.next(response.json() as ResponseDomain<T[]>);
+          observer.complete();
+        });;
+    });
+  }
+
+  protected _get(path: string): Observable<ResponseDomain<T[]>> {
+    return new Observable<ResponseDomain<T[]>>(observer => {
+      this._httpService.get(this._baseUrl + path)
         .subscribe(response => {
           observer.next(response.json() as ResponseDomain<T[]>);
           observer.complete();

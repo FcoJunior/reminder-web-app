@@ -14,7 +14,12 @@ export class ReminderService extends HttpProvider<ReminderDomain> {
   }
 
   public get(selector: ReminderSelector): Observable<ReminderDomain[]> {
-    return this._get('v1/stickynotes', selector)
+    return this._getWithParams('v1/stickynotes', selector)
+      .pipe(map(x => ReminderDomain.mapArray(x.data)));
+  }
+
+  public checkNotify(minutes: number): Observable<ReminderDomain[]> {
+    return this._get('v1/stickynotes/expiresIn/' + minutes)
       .pipe(map(x => ReminderDomain.mapArray(x.data)));
   }
 
